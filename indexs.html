@@ -6,7 +6,12 @@
 <script>
 const config = {
 	width: 960,
-	height: 540
+	height: 540,
+	scene:{
+		preload: precarga,
+		create: crear,
+		update: actualiza
+	}
 }
 const game = new Phaser.Game(config);
 </script>
