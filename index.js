@@ -6,7 +6,7 @@ const fs = require("fs");
 
 
 function send_index(response){
-	fs.readFile("indexs.html", function(err, data){
+	fs.readFile("index.html", function(err, data){
 	
 	if(err){
 			console.error(err);
