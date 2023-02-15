@@ -25,6 +25,7 @@ const game = new Phaser.Game(config);
 let player;
 let player_speed =2;
 let enemy_padding = 128;
+let enemies_max = 28;
 let enemies = [];
 let enemies_pos = [
 	{x: enemy_padding, y: enemy_padding},
@@ -46,22 +47,28 @@ let key_down;
 
 
 function precarga(){
-	this.load.image("player-img", "player.png");
+	this.load.image("player-img", "imgs/player.png");
+	this.load.image("bg-img", "imgs/background.png")	
 	
-
+	for (let i = 1; i <= enemies_max; i++){
+		this.load.image("enemy"+i, "imgs/enemy"+i+".png");
+	}
 }
 
 function crear(){
-	player = this.add.image(config.width/2,config.height/2,"player-img");
-	
+	player = this.add.image(config.width/2, config.height/2,"player-img");
+	let bg = this.add.image(config.width/2, config.height/2,"bg-img");
+
 	this.physics.add.existing(player, false);
 	player.body.setCollideWorldBounds(true);
 
 	for(let i = 0; i < enemies_pos.length; i++){
-		enemies.push(this.add.image(enemies_pos[i].x, enemies_pos[i].y, "player-img"));
+		let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+		let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
+		enemies.push(e);
 		this.physics.add.existing(enemies[i], false);
 		enemies[i].body.setCollideWorldBounds(true);
-		enemies.push(enemy);
+		
 	}
 	
 	this.physics.add.collider(player, enemies);
@@ -92,6 +99,11 @@ function actualiza(){
 	}
 
 	this.physics.collide(player, enemies );
+
+	//setInterval(espadaP() ,1000);
+}
+function espadaP(){
+	
 }
 
 </script>
