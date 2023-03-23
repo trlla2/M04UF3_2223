@@ -66,6 +66,31 @@ function precarga(){
 	}
 }
 
+function decrement(){
+	time_type = "increment";
+}
+
+function increment(){
+	time_type = "decrement";
+}
+
+function obtainDif(){
+	var difs = document.getElementsByName("difficulty");
+	var selectedDif;
+
+	for(var i = 0; i < 3; i++){
+		if(difs[i].checked){
+			selectedDif = difs[i];
+			break;
+		}
+	}
+	return selectedDif;
+}
+
+function sartGame(){
+	difficulty 
+}
+
 function crear(){
 	let bg = this.add.image(config.width/2, config.height/2,"bg-img");
 	player = this.add.image(config.width/2, config.height/2,"player-img");
