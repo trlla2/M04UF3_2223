@@ -42,6 +42,8 @@ let enemies_pos = [
 
 let score = 0;
 let score_text;
+let timer;
+let timer_text;
 
 let key_left;
 let key_right;
@@ -97,6 +99,13 @@ function crear(){
 	}, 2000);
 
 	score_text = this.add.text(16,16,'0',{font:'600 80px Arial'});
+	timer_text = this.add.text(3 * config.width / 4, 24, "Time: 0", {font:'600 40px Arial'});
+
+	setInterval(() => {
+		timer++;
+		timer_text.setText("Time: " + timer);
+
+	},1000);
 
 }
 let last_dir = "L";
@@ -171,8 +180,8 @@ function actualiza(){
 
 	//var timer = scene.time.delayedCall(dellay, callback, args, scope);
 
-	weapon.x =player.x+48;
-	weapon.y = player.y;
+	//weapon.x =player.x+48;
+	//weapon.y = player.y;
 //weapon.rotation += 0.05;
 }
 
