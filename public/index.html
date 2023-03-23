@@ -48,7 +48,7 @@ let timer_text;
 let time_type = "increment";
 
 let difficulty;
-let playing = false;
+
 
 let key_left;
 let key_right;
@@ -87,8 +87,26 @@ function obtainDif(){
 	return selectedDif;
 }
 
-function sartGame(){
-	difficulty 
+function play(){
+	difficulty = obtainDif();
+	
+	if(time_type === "increment"){
+		timer = 0;
+		setInterval(() => {
+			timer++;
+			timer_text.setText("Time: " + timer + "s");
+
+		},1000);
+		}
+	if (time_type === "decrement"){
+		timer = 300;
+
+		setInterval(() => {
+			timer--;
+			timer_text.setText("Time: " + timer + "s");
+
+		},1000);
+	}
 }
 
 function crear(){
@@ -130,12 +148,6 @@ function crear(){
 
 	score_text = this.add.text(16,16,'0',{font:'600 80px Arial'});
 	timer_text = this.add.text(3 * config.width / 4, 24, "Time: 0", {font:'600 40px Arial'});
-
-	setInterval(() => {
-		timer++;
-		timer_text.setText("Time: " + timer + "s");
-
-	},1000);
 
 }
 let last_dir = "L";
