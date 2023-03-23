@@ -24,6 +24,7 @@ const game = new Phaser.Game(config);
 let weapon;
 let player;
 let player_speed =2;
+
 let enemy_padding = 128;
 let enemies_max = 28;
 let enemies = [];
@@ -42,8 +43,12 @@ let enemies_pos = [
 
 let score = 0;
 let score_text;
-let timer;
+let timer = 0;
 let timer_text;
+let time_type = "increment";
+
+let difficulty;
+let playing = false;
 
 let key_left;
 let key_right;
@@ -103,7 +108,7 @@ function crear(){
 
 	setInterval(() => {
 		timer++;
-		timer_text.setText("Time: " + timer);
+		timer_text.setText("Time: " + timer + "s");
 
 	},1000);
 
@@ -112,6 +117,22 @@ let last_dir = "L";
 let last_x = config.width/2;
 let last_y = config.height/2;
 function actualiza(){
+
+
+
+	if( timer % 5 === 0){
+		for(let i = 0; i < enemies_pos.length; i++){
+			let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+			let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
+			enemies.push(e);
+			this.physics.add.existing(enemies[i], false);
+			enemies[i].body.setCollideWorldBounds(true);
+		
+		}
+	}
+
+
+
 	if(key_left.isDown){
 		player.x -= player_speed;
 
@@ -190,5 +211,23 @@ function actualiza(){
 </head>
 <body>
 <h1> Enti survivors</h1>
+<form>
+
+<p>Seleccione la dificultad:</p>
+<input type="radio" id="ez" name="difficulty" value="ez" checked/>
+<label for="ez">Facil</label>
+<input type="radio" id="mid" name="difficulty" value="mid"/>
+<label for="mid">Normal</label>
+<input type="radio" id="hard" name="difficulty" value="hard"/>
+<label for="hard">Dificil</label>
+
+<br>
+
+<p>tiempo: </p>
+<button type="button" id="inc" onclick="incremenet(); return false;">Increment</button>
+<button type="button" id="dec" onclick="decrement()return false;">Decrement</button>
+<br>
+<button type="button" id="play" onclick="play(); return false;">Jugar</button>
+</form>
 </body>
 </html>
