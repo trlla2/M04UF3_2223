@@ -107,6 +107,8 @@ function play(){
 
 		},1000);
 	}
+
+	
 }
 
 function crear(){
@@ -158,6 +160,35 @@ function actualiza(){
 
 
 	if( timer % 5 === 0){
+
+		switch(obtainDif){
+			case"ez":
+				for(let i = 0; i < enemies_pos.length; i++){
+					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
+					this.physics.add.existing(enemies[i], false);
+					enemies.push(e);
+		
+				}	
+			case"mid":
+				for(let i = 0; i < enemies_pos.length; i++){
+					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
+					this.physics.add.existing(enemies[i], false);
+					enemies.push(e);
+		
+				}
+			case"hard":
+				for(let i = 0; i < enemies_pos.length; i++){
+					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
+					this.physics.add.existing(enemies[i], false);
+					enemies.push(e);
+		
+				}
+		}
+
+/*
 		for(let i = 0; i < enemies_pos.length; i++){
 			let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
 			let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
@@ -166,6 +197,7 @@ function actualiza(){
 			enemies[i].body.setCollideWorldBounds(true);
 		
 		}
+		*/
 	}
 
 
