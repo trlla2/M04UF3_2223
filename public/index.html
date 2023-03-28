@@ -77,7 +77,7 @@ function increment(){
 }
 
 function obtainDif(){
-	var difs = document.getElementsByName("difficulty");
+	var difs = document.getElementsByName("difficulty");:
 	var selectedDif;
 
 	for(var i = 0; i < 3; i++){
@@ -91,22 +91,22 @@ function obtainDif(){
 
 function play(){
 	difficulty = obtainDif();
-	score = o;
+	score = 0;
 	
 	if(time_type === "increment"){
 		timer = 0;
-		timer_spawn = etInterval(() => {
+		timer_spawn = setInterval(() => {
 			timer++;
-			timer_spawn = timer_text.setText("Time: " + timer + "s");
+			timer_text.setText("Time: " + timer + "s");
 
 		},1000);
 		}
 	if (time_type === "decrement"){
 		timer = 300;
 
-		setInterval(() => {
+		timer_spawn = setInterval(() => {
 			timer--;
-			timer_spawn = timer_text.setText("Time: " + timer + "s");
+			timer_text.setText("Time: " + timer + "s");
 
 		},1000);
 	}
@@ -114,29 +114,35 @@ function play(){
 	enemy_spawn = setInterval( () => {	
 		switch(difficulty){
 			case"ez":
-				for(let i = 0; i < enemies_pos.length; i++){
+				for(let i = 0; i < 2; i++){
+					let p = Math.floor(Math.random() * enemies_pos.length);
 					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
 					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
 					this.physics.add.existing(enemies[i], false);
 					enemies.push(e);
 		
-				}	
+				}
+				break;
 			case"mid":
-				for(let i = 0; i < enemies_pos.length; i++){
+				for(let i = 0; i < 3; i++){
+					let p = Math.floor(Math.random() * enemies_pos.length);
 					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
 					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
 					this.physics.add.existing(enemies[i], false);
 					enemies.push(e);
 		
 				}
+				break;
 			case"hard":
-				for(let i = 0; i < enemies_pos.length; i++){
+				for(let i = 0; i < 5; i++){
+					let p = Math.floor(Math.random() * enemies_pos.length);
 					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
 					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
 					this.physics.add.existing(enemies[i], false);
 					enemies.push(e);
 		
 				}
+				break;
 		}
 	}, 5000);
 }
@@ -186,55 +192,6 @@ let last_x = config.width/2;
 let last_y = config.height/2;
 function actualiza(){
 
-	difficulty = obtainDif();
-	
-	if(time_type === "increment"){
-		timer = 0;
-		setInterval(() => {
-			timer++;
-			timer_text.setText("Time: " + timer + "s");
-
-		},1000);
-		}
-	if (time_type === "decrement"){
-		timer = 300;
-
-		setInterval(() => {
-			timer--;
-			timer_text.setText("Time: " + timer + "s");
-
-		},1000);
-	}
-
-	if( timer % 5 === 0){
-
-		switch(difficulty){
-			case"ez":
-				for(let i = 0; i < enemies_pos.length; i++){
-					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
-					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
-					this.physics.add.existing(enemies[i], false);
-					enemies.push(e);
-		
-				}	
-			case"mid":
-				for(let i = 0; i < enemies_pos.length; i++){
-					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
-					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
-					this.physics.add.existing(enemies[i], false);
-					enemies.push(e);
-		
-				}
-			case"hard":
-				for(let i = 0; i < enemies_pos.length; i++){
-					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
-					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
-					this.physics.add.existing(enemies[i], false);
-					enemies.push(e);
-		
-				}
-		}
-
 	
 /*
 		for(let i = 0; i < enemies_pos.length; i++){
@@ -246,7 +203,7 @@ function actualiza(){
 		
 		}
 		*/
-	}
+	
 
 
 
@@ -301,7 +258,9 @@ function actualiza(){
 			weapon.y = player.y + 48;
 			break;
 	}
-
+	
+	
+	/*
 	for(let i = 0; i < enemies_pos.length; i++){
 		this.physics.moveToObject(enemies[i], player, 50);
 		this.physics.collide(enemies[i], enemies);
@@ -313,7 +272,7 @@ function actualiza(){
 			score_text.text = score;
 		}
 	}
-
+*/
 	this.physics.collide(player, enemies );
 
 	//var timer = scene.time.delayedCall(dellay, callback, args, scope);
