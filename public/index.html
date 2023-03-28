@@ -28,7 +28,6 @@ let player_speed =2;
 let enemy_padding = 128;
 let enemies_max = 28;
 let enemies = [];
-let enemies_spawn;
 let enemies_pos = [
 	{x: enemy_padding, y: enemy_padding},
 	{x: config.width/2, y: enemy_padding},
@@ -45,7 +44,6 @@ let enemies_pos = [
 let score = 0;
 let score_text;
 let timer = 0;
-let timer_spawn;
 let timer_text;
 let time_type = "increment";
 
@@ -68,12 +66,27 @@ function precarga(){
 	}
 }
 
-function decrement(){
-	time_type = "increment";
+function increment(){
+	
+
+	timer = 0;
+		setInterval(() => {
+			timer++;
+			timer_text.setText("Time: " + timer + "s");
+
+		},1000);
 }
 
-function increment(){
-	time_type = "decrement";
+function decrement(){
+	
+
+	timer = 300;
+	
+		 setInterval(() => {
+			timer--;
+			timer_text.setText("Time: " + timer + "s");
+
+		},1000);
 }
 
 function obtainDif(){
@@ -82,70 +95,13 @@ function obtainDif(){
 
 	for(var i = 0; i < 3; i++){
 		if(difs[i].checked){
-			selectedDif = difs[i];
+			selectedDif = difs[i].value;
 			break;
 		}
 	}
 	return selectedDif;
 }
 
-function play(){
-	difficulty = obtainDif();
-	score = 0;
-	
-	if(time_type === "increment"){
-		timer = 0;
-		timer_spawn = setInterval(() => {
-			timer++;
-			timer_text.setText("Time: " + timer + "s");
-
-		},1000);
-		}
-	if (time_type === "decrement"){
-		timer = 300;
-
-		timer_spawn = setInterval(() => {
-			timer--;
-			timer_text.setText("Time: " + timer + "s");
-
-		},1000);
-	}
-
-	enemies_spawn = setInterval( () => {	
-		switch(difficulty){
-			case"ez":
-				for(let i = 0; i < 2; i++){
-					let p = Math.floor(Math.random() * enemies_pos.length);
-					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
-					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy);
-					this.physics.add.existing(e, false);
-					enemies.push(e);
-		
-				}
-				break;
-			case"mid":
-				for(let i = 0; i < 3; i++){
-					let p = Math.floor(Math.random() * enemies_pos.length);
-					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
-					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy);
-					this.physics.add.existing(e, false);
-					enemies.push(e);
-		
-				}
-				break;
-			case"hard":
-				for(let i = 0; i < 5; i++){
-					let p = Math.floor(Math.random() * enemies_pos.length);
-					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
-					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy);
-					this.physics.add.existing(e, false);
-					enemies.push(e);
-		
-				}
-				break;
-		}
-	}, 5000);
-}
 function crear(){
 	let bg = this.add.image(config.width/2, config.height/2,"bg-img");
 	player = this.add.image(config.width/2, config.height/2,"player-img");
@@ -186,6 +142,44 @@ function crear(){
 	score_text = this.add.text(16,16,'0',{font:'600 80px Arial'});
 	timer_text = this.add.text(3 * config.width / 4, 24, "Time: 0", {font:'600 40px Arial'});
 
+
+	difficulty = obtainDif();
+
+
+	 setInterval( () => {	
+			switch(difficulty){
+				case"ez":
+					for(let i = 0; i < 2; i++){
+						let p = Math.floor(Math.random() * enemies_pos.length);
+						let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+						let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy);
+						this.physics.add.existing(e, false);
+						enemies.push(e);
+			
+					}
+					break;
+				case"mid":
+					for(let i = 0; i < 3; i++){
+						let p = Math.floor(Math.random() * enemies_pos.length);
+						let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+						let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy);
+						this.physics.add.existing(e, false);
+						enemies.push(e);
+			
+					}
+					break;
+				case"hard":
+					for(let i = 0; i < 5; i++){
+						let p = Math.floor(Math.random() * enemies_pos.length);
+						let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+						let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy);
+						this.physics.add.existing(e, false);
+						enemies.push(e);
+			
+					}
+					break;
+			}
+		}, 5000);
 }
 let last_dir = "L";
 let last_x = config.width/2;
@@ -260,7 +254,7 @@ function actualiza(){
 	}
 	
 	
-	/*
+	
 	for(let i = 0; i < enemies_pos.length; i++){
 		this.physics.moveToObject(enemies[i], player, 50);
 		this.physics.collide(enemies[i], enemies);
@@ -272,7 +266,7 @@ function actualiza(){
 			score_text.text = score;
 		}
 	}
-*/
+
 	this.physics.collide(player, enemies );
 
 	//var timer = scene.time.delayedCall(dellay, callback, args, scope);
@@ -303,7 +297,6 @@ function actualiza(){
 <button type="button" id="inc" onclick="incremenet(); return false;">Increment</button>
 <button type="button" id="dec" onclick="decrement()return false;">Decrement</button>
 <br>
-<button type="button" id="play" onclick="play(); return false;">Jugar</button>
 </form>
 </body>
 </html>
