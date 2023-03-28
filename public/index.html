@@ -28,6 +28,7 @@ let player_speed =2;
 let enemy_padding = 128;
 let enemies_max = 28;
 let enemies = [];
+let enemies_spawn;
 let enemies_pos = [
 	{x: enemy_padding, y: enemy_padding},
 	{x: config.width/2, y: enemy_padding},
@@ -44,6 +45,7 @@ let enemies_pos = [
 let score = 0;
 let score_text;
 let timer = 0;
+let timer_spawn;
 let timer_text;
 let time_type = "increment";
 
@@ -89,12 +91,13 @@ function obtainDif(){
 
 function play(){
 	difficulty = obtainDif();
+	score = o;
 	
 	if(time_type === "increment"){
 		timer = 0;
-		setInterval(() => {
+		timer_spawn = etInterval(() => {
 			timer++;
-			timer_text.setText("Time: " + timer + "s");
+			timer_spawn = timer_text.setText("Time: " + timer + "s");
 
 		},1000);
 		}
@@ -103,14 +106,40 @@ function play(){
 
 		setInterval(() => {
 			timer--;
-			timer_text.setText("Time: " + timer + "s");
+			timer_spawn = timer_text.setText("Time: " + timer + "s");
 
 		},1000);
 	}
 
-	
+	enemy_spawn = setInterval( () => {	
+		switch(difficulty){
+			case"ez":
+				for(let i = 0; i < enemies_pos.length; i++){
+					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
+					this.physics.add.existing(enemies[i], false);
+					enemies.push(e);
+		
+				}	
+			case"mid":
+				for(let i = 0; i < enemies_pos.length; i++){
+					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
+					this.physics.add.existing(enemies[i], false);
+					enemies.push(e);
+		
+				}
+			case"hard":
+				for(let i = 0; i < enemies_pos.length; i++){
+					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
+					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
+					this.physics.add.existing(enemies[i], false);
+					enemies.push(e);
+		
+				}
+		}
+	}, 5000);
 }
-
 function crear(){
 	let bg = this.add.image(config.width/2, config.height/2,"bg-img");
 	player = this.add.image(config.width/2, config.height/2,"player-img");
@@ -157,11 +186,29 @@ let last_x = config.width/2;
 let last_y = config.height/2;
 function actualiza(){
 
+	difficulty = obtainDif();
+	
+	if(time_type === "increment"){
+		timer = 0;
+		setInterval(() => {
+			timer++;
+			timer_text.setText("Time: " + timer + "s");
 
+		},1000);
+		}
+	if (time_type === "decrement"){
+		timer = 300;
+
+		setInterval(() => {
+			timer--;
+			timer_text.setText("Time: " + timer + "s");
+
+		},1000);
+	}
 
 	if( timer % 5 === 0){
 
-		switch(obtainDif){
+		switch(difficulty){
 			case"ez":
 				for(let i = 0; i < enemies_pos.length; i++){
 					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
@@ -188,6 +235,7 @@ function actualiza(){
 				}
 		}
 
+	
 /*
 		for(let i = 0; i < enemies_pos.length; i++){
 			let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
