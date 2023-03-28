@@ -117,8 +117,8 @@ function play(){
 				for(let i = 0; i < 2; i++){
 					let p = Math.floor(Math.random() * enemies_pos.length);
 					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
-					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
-					this.physics.add.existing(enemies[i], false);
+					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy);
+					this.physics.add.existing(e, false);
 					enemies.push(e);
 		
 				}
@@ -127,8 +127,8 @@ function play(){
 				for(let i = 0; i < 3; i++){
 					let p = Math.floor(Math.random() * enemies_pos.length);
 					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
-					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
-					this.physics.add.existing(enemies[i], false);
+					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy);
+					this.physics.add.existing(e, false);
 					enemies.push(e);
 		
 				}
@@ -137,8 +137,8 @@ function play(){
 				for(let i = 0; i < 5; i++){
 					let p = Math.floor(Math.random() * enemies_pos.length);
 					let enemy = "enemy"+Math.floor(Math.random()*enemies_max+1);
-					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy)
-					this.physics.add.existing(enemies[i], false);
+					let e = this.add.image(enemies_pos[i].x, enemies_pos[i].y, enemy);
+					this.physics.add.existing(e, false);
 					enemies.push(e);
 		
 				}
