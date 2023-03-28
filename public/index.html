@@ -255,7 +255,7 @@ function actualiza(){
 	
 	
 	
-	for(let i = 0; i < enemies_pos.length; i++){
+	for(let i = 0; i < enemies.length; i++){
 		this.physics.moveToObject(enemies[i], player, 50);
 		this.physics.collide(enemies[i], enemies);
 
@@ -294,8 +294,8 @@ function actualiza(){
 <br>
 
 <p>tiempo: </p>
-<button type="button" id="inc" onclick="incremenet(); return false;">Increment</button>
-<button type="button" id="dec" onclick="decrement()return false;">Decrement</button>
+<button type="button" id="inc" onclick="increment(); return false;">Increment</button>
+<button type="button" id="dec" onclick="decrement(); return false;">Decrement</button>
 <br>
 </form>
 </body>
